@@ -11,18 +11,16 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "libft.h"
 
 typedef struct s_stack
 {
-    size_t size;
-    size_t max_size;
+    int capacity;
+    int top;
     int     *stack;
 }               t_stack;
 
-void push(t_stack *stack, int n);
-int pop(t_stack *stack);
-void swap(t_stack *stack);
-void rotate(t_stack *stack);
-void r_rotate(t_stack *stack);
-void print_stack(t_stack t);
+void push(t_stack *t, int n);
+int pop(t_stack *t);
+int peek(t_stack *t);
+int is_empty(t_stack t);
+int is_full(t_stack t);
