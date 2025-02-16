@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../stack.h"
+#include "../header.h"
 
 int main(void)
 {
@@ -18,8 +18,8 @@ int main(void)
     int arr[] = {1, 2, 3, 4, 5};
 
     stack.stack = arr;
-    stack.max_size = 5;
-    stack.size = 5;
+    stack.capacity = 5;
+    stack.top = 4;
     print_stack(stack);
 
     //Swap
