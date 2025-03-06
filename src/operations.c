@@ -12,7 +12,7 @@
 
 #include "header.h"
 
-void swap(t_stack *t)
+void swap(t_stack *t, char name)
 {
     int temp;
 
@@ -21,9 +21,10 @@ void swap(t_stack *t)
     temp = t->stack[t->top];
     t->stack[t->top] = t->stack[t->top - 1];
     t->stack[t->top - 1] = temp;
+    ft_printf("s%c\n", name);
 }
 
-void rotate(t_stack *t)
+void rotate(t_stack *t, char name)
 {
     int i;
     int top;
@@ -38,9 +39,10 @@ void rotate(t_stack *t)
         i--;
     }
     t->stack[0] = top; 
+    ft_printf("r%c\n", name);
 }
 
-void r_rotate(t_stack *t)
+void r_rotate(t_stack *t, char name)
 {
     int i;
     int last;
@@ -55,13 +57,15 @@ void r_rotate(t_stack *t)
         i++;
     }
     t->stack[t->top] = last;
+    ft_printf("rr%c\n", name);
 }
 
-void push_x(t_stack *dst, t_stack *src)
+void push_x(t_stack *dst, t_stack *src, char name)
 {
-    if (is_empty(*src))
+    if (stk_is_empty(*src))
         return ;
-    push(dst, pop(src));
+    stk_push(dst, stk_pop(src));
+    ft_printf("p%c\n", name);
 }
 
 void print_2stacks(t_stack a, t_stack b)

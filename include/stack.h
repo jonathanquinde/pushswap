@@ -14,13 +14,13 @@
 
 typedef struct s_stack
 {
-    int capacity;
-    int top;
-    int     *stack;
+	int capacity;
+	int top;
+	int     *stack;
 }               t_stack;
 
-void push(t_stack *t, int n);
-int pop(t_stack *t);
-int peek(t_stack *t);
-int is_empty(t_stack t);
-int is_full(t_stack t);
+void	stk_push(t_stack *t, int n);
+int		stk_pop(t_stack *t);
+int 	stk_peek(t_stack *t);
+int 	stk_is_empty(t_stack t);
+t_stack	stk_new(int capacity);

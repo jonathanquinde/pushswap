@@ -12,28 +12,35 @@
 
 #include "stack.h"
 
-void push(t_stack *t, int n)
+void stk_push(t_stack *t, int n)
 {
-    t->stack[t->top + 1] = n;
-    t->top++;
+	t->stack[t->top + 1] = n;
+	t->top++;
 }
 
-int pop(t_stack *t)
+int stk_pop(t_stack *t)
 {
-    return (t->stack[t->top--]);
+	return (t->stack[t->top--]);
 }
 
-int peek(t_stack *t)
+int stk_peek(t_stack *t)
 {
-    return (t->stack[t->top]);
+	return (t->stack[t->top]);
 }
 
-int is_empty(t_stack t)
+int stk_is_empty(t_stack t)
 {
-    return (t.top == -1);
+	return (t.top == -1);
 }
 
-int is_full(t_stack t)
+t_stack	stk_new(int capacity)
 {
-    return (t.capacity == t.top + 1);
+	t_stack	t;
+	int		*arr;
+
+	arr = malloc(sizeof(int) * capacity);
+	t.stack = arr;
+	t.capacity = capacity;
+	t.top = -1;
+	return (t);
 }
