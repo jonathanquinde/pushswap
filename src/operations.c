@@ -24,15 +24,31 @@ void swap(t_stack *t, char name)
     ft_printf("s%c\n", name);
 }
 
+void sswap(t_stack *a, t_stack *b)
+{
+    int temp_a;
+    int temp_b;
+
+    if (a->top < 1 && b->top < 1)
+        return ;
+    temp_a = stk_peek(a);
+    temp_b = stk_peek(b);
+    a->stack[a->top] = a->stack[a->top - 1];
+    b->stack[b->top] = b->stack[b->top - 1];
+    a->stack[a->top - 1] = temp_a;
+    b->stack[b->top - 1] = temp_b;
+    ft_printf("ss\n");
+}
+
 void rotate(t_stack *t, char name)
 {
     int i;
     int top;
 
-    if (t->top == 0)
+    if (t->top < 1)
         return ;
     i = t->top;
-    top = t->stack[t->top];
+    top = stk_peek(t);
     while (i != 0)
     {
         t->stack[i] = t->stack[i - 1];
