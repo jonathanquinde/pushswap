@@ -12,91 +12,99 @@
 
 #include "header.h"
 
-void stack_sort(t_stack *a, t_stack *b);
-void move_min_to_top(t_stack *a, int min_index);
-int find_min_index(t_stack *a);
-void is_sorted(int	*arr, int size);
-
-//4 5 -9 3 1
+void sort(t_stack *a, t_stack *b, int size);
+void sort_recursive_a(t_stack *a, t_stack *b, int size);
+void sort_recursive_b(t_stack *a, t_stack *b, int size);
 
 int main(int argc, char *argv[])
 {
 	t_stack a;
-	t_stack b = stk_new(5);
 
 	parse_input(&a, argc, argv);
-	is_sorted(a.stack, a.capacity);
-	stack_sort(&a, &b);
-	free(a.stack);
-	free(b.stack);
+	if (is_sorted(a.stack, a.capacity, a.top))
+	{
+		free (a.stack);
+		return (0);
+	}
+	t_stack b = stk_new(a.capacity);
+	if (b.stack == NULL)
+		return (0);
+	//print_2stacks(a, b);
+    sort(&a, &b, a.top + 1);
+	//print_2stacks(a, b);
+	free (a.stack);
+	free (b.stack);
 }
 
-void is_sorted(int	*arr, int size)
+void sort_recursive_a(t_stack *a, t_stack *b, int size)
 {
-	if (size == 1)	
-	{
-		free (arr);
-		exit(EXIT_SUCCESS);
-	}
-	for (int i = 1; i < size; i++)
-	{
-		if (arr[i - 1] < arr[i])
-			return ;
-	}
-	free (arr);
-	exit(EXIT_SUCCESS);
+    if (is_sorted(a->stack, size, a->top))
+    {
+        //ft_printf("Stack a for %d elements is sorted!\n", size);
+        //print_2stacks(*a, *b);
+        //for (int i = 0; i < size / 2; i++)
+        //{
+        //    push_x(a, b, 'a');
+        //}
+        //print_2stacks(*a, *b);
+        return ;
+    }
+    if (size <= 4)
+    {
+        if (size != 2)
+            partition_stack_a(a, b, size);
+        sort_edges(a, b);
+        push_x(a, b, 'a');
+        push_x(a, b, 'a');
+        return;
+    }
+
+    partition_stack_a(a, b, size);
+
+    sort_recursive_a(a, b, size / 2);
+    sort_recursive_b(a, b, size / 2);
 }
 
-/**
- * Find the index of the smallest element in stack A
- */
-int find_min_index(t_stack *a)
+void sort_recursive_b(t_stack *a, t_stack *b, int size)
 {
-	int min = stk_peek(a);
-	int min_index = a->top;
-	for (int i = a->top; i >= 0; i--)
-	{
-		if (a->stack[i] < min)
-		{
-			min = a->stack[i];
-			min_index = i;
-		}
-	}
-	return min_index;
+    if (is_sorted_rev(b->stack, size, b->top))
+    {
+        //ft_printf("Stack b for %d elements is sorted!\n", size);
+        //print_2stacks(*a, *b);
+        for (int i = 0; i < size; i++)
+        {
+            push_x(a, b, 'a');
+        }
+        //print_2stacks(*a, *b);
+        return ;
+    }
+    if (size <= 4)
+    {
+        if (size != 2)
+            partition_stack_b(b, a, size);
+        sort_edges(a, b);
+        push_x(a, b, 'a');
+        push_x(a, b, 'a');
+        return;
+    }
+
+    partition_stack_b(b, a, size);
+
+    sort_recursive_a(a, b, size / 2);
+    sort_recursive_b(a, b, size / 2);
 }
 
-/**
- * Moves the smallest element to the top using rotate/reverse rotate
- */
-void move_min_to_top(t_stack *a, int min_index)
+void sort(t_stack *a, t_stack *b, int size)
 {
-	if (min_index > a->top / 2)
-	{
-		// Closer to the top, use r_rotate
-		while (min_index++ < a->top)
-			r_rotate(a, 'a');
-	}
-	else
-	{
-		// Closer to the bottom, use rotate
-		while (min_index-- > 0)
-			rotate(a, 'a');
-	}
+    partition_stack_a(a, b, size);
+
+    sort_recursive_a(a, b, size / 2);
+    sort_recursive_b(a, b, size / 2);
 }
 
-/**
- * Sorts stack A using stack B as a buffer
- */
-void stack_sort(t_stack *a, t_stack *b)
-{
-	while (!stk_is_empty(*a))
-	{
-		int min_index = find_min_index(a);
-		move_min_to_top(a, min_index);
-		push_x(b, a, 'b'); // pb
-	}
-	while (!stk_is_empty(*b))
-	{
-		push_x(a, b, 'a'); // pa
-	}
-}
+//4 -> 2 2 -> 4
+
+//8 -> 4 4 -> 2 2-4
+//4 4 -> 4-2 2 -> 8
+
+//16 -> 8 8
