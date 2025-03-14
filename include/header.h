@@ -21,4 +21,4 @@ int find_median(t_stack *a, int range);
 
 void partition_stack_a(t_stack *a, t_stack *b, int range);
 void partition_stack_b(t_stack *b, t_stack *a, int range);
-void sort_edges(t_stack *a, t_stack *b);
+void sort_edges(t_stack *a, t_stack *b, int size);
