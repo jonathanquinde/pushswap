@@ -48,7 +48,7 @@ int is_sorted(int *arr, int range, int top)
 
 int is_sorted_rev(int *arr, int range, int top)
 {
-    if (range < 2 || top < 2)  
+    if (range < 2 || top < 1)  
         return (1);
     for (int i = top; i > top - range + 1; i--)  
     {
