@@ -21,6 +21,6 @@ typedef struct s_stack
 
 void	stk_push(t_stack *t, int n);
 int		stk_pop(t_stack *t);
-int 	stk_peek(t_stack *t);
+int 	stk_peek(t_stack *t, int pos);
 int 	stk_is_empty(t_stack t);
 t_stack	stk_new(int capacity);

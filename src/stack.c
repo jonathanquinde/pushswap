@@ -23,9 +23,9 @@ int stk_pop(t_stack *t)
 	return (t->stack[t->top--]);
 }
 
-int stk_peek(t_stack *t)
+int stk_peek(t_stack *t, int pos)
 {
-	return (t->stack[t->top]);
+	return (t->stack[t->top - (pos - 1)]);
 }
 
 int stk_is_empty(t_stack t)

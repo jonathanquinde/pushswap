@@ -31,8 +31,8 @@ void sswap(t_stack *a, t_stack *b)
 
     if (a->top < 1 && b->top < 1)
         return ;
-    temp_a = stk_peek(a);
-    temp_b = stk_peek(b);
+    temp_a = stk_peek(a, 1);
+    temp_b = stk_peek(b, 1);
     a->stack[a->top] = a->stack[a->top - 1];
     b->stack[b->top] = b->stack[b->top - 1];
     a->stack[a->top - 1] = temp_a;
@@ -48,7 +48,7 @@ void rotate(t_stack *t, char name)
     if (t->top < 1)
         return ;
     i = t->top;
-    top = stk_peek(t);
+    top = stk_peek(t, 1);
     while (i != 0)
     {
         t->stack[i] = t->stack[i - 1];
