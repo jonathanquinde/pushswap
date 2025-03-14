@@ -46,7 +46,7 @@ void sort_recursive_a(t_stack *a, t_stack *b, int size)
     }
     if (size <= 6)
     {
-        if (size == 4 || size == 6)
+        if (size > 3)
         {
             ft_printf("Parting a on %d elements\n", size);
             partition_stack_a(a, b, size);
@@ -58,7 +58,8 @@ void sort_recursive_a(t_stack *a, t_stack *b, int size)
 
         push_x(a, b, 'a');
         push_x(a, b, 'a');
-        push_x(a, b, 'a');
+        if (size == 3 || (int) floor(size / (double)2) == 3)
+            push_x(a, b, 'a');
         return;
     }
     partition_stack_a(a, b, size);
@@ -83,7 +84,7 @@ void sort_recursive_b(t_stack *a, t_stack *b, int size)
     }
     if (size <= 6)
     {
-        if (size == 4 || size == 6)
+        if (size > 3)
         {
             ft_printf("Parting b on %d elements\n", size);
             partition_stack_b(b, a, size);
@@ -95,7 +96,8 @@ void sort_recursive_b(t_stack *a, t_stack *b, int size)
 
         push_x(a, b, 'a');
         push_x(a, b, 'a');
-        push_x(a, b, 'a');
+        if (size == 3 || (int) floor(size / (double)2) == 3)
+            push_x(a, b, 'a');
         return;
     }
     partition_stack_b(b, a, size);

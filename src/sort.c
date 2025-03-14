@@ -12,14 +12,16 @@
 
 #include "header.h"
 
-void sort_small_stack_a(t_stack *a);
-void sort_small_stack_b(t_stack *a);
+void sort_small_stack_a(t_stack a, char *operations);
+void sort_small_stack_b(t_stack b, char *operations);
+void sort_3_6(t_stack *a, t_stack *b);
 
 void partition_stack_a(t_stack *a, t_stack *b, int range)
 {
-	int count_push = range / 2;
+	int count_push = (int) floor(range / (double)2);
 	int count = 0;
 	int median = find_median(a, range);
+    ft_printf("median: %d", median);
 	for (int i = 0; i < range; i++) {
 		if (count_push == 0)
 			break ;
@@ -40,9 +42,10 @@ void partition_stack_a(t_stack *a, t_stack *b, int range)
 
 void partition_stack_b(t_stack *b, t_stack *a, int range)
 {
-	int count_push = range / 2;
+	int count_push = (int) ceil(range / (double)2);
 	int count_rotate = 0;
 	int median = find_median(b, range);
+    ft_printf("median: %d", median);
 	for (int i = 0; i < range; i++) {
 		if (count_push == 0)
 			break ;
@@ -63,61 +66,124 @@ void partition_stack_b(t_stack *b, t_stack *a, int range)
 
 void sort_edges(t_stack *a, t_stack *b, int size)
 {
-	if (size == 2 || size == 4)
+	char	ops_a[6] = {0};
+	char	ops_b[6] = {0};
+	int		i;
+
+    if (size == 2 || (int) ceil(size / (double)2) == 2)
+    {
+        if (a->top > 0 && stk_peek(a, 1) > a->stack[a->top - 1]) 
+            ops_a[0] = 's';
+    }
+    else if (size == 3 ||(int) ceil(size / (double)2) == 3)
+    	sort_small_stack_a(*a, ops_a);
+    if (size == 2 || (int) floor(size / (double)2) == 2)
+    {
+        if (b->top > 0 && stk_peek(b, 1) < b->stack[b->top - 1]) 
+            ops_b[0] = 's';
+    }
+    else if (size == 3 || (int) floor(size / (double)2) == 3)
+    	sort_small_stack_b(*b, ops_b);
+	i = 0;
+	while (ops_a[i])
 	{
-		if (stk_peek(a, 1) > stk_peek(a, 2) && stk_peek(b, 1) < stk_peek(b, 2))
-			sswap(a, b);
-		else{
-			if (a->top > 0 && stk_peek(a, 1) > a->stack[a->top - 1]) 
-				swap(a, 'a');
-			if (b->top > 0 && stk_peek(b, 1) < b->stack[b->top - 1]) 
-				swap(b, 'b');
-		}
+		if (ops_a[i] == 's')
+			swap(a, 'a');
+		else if (ops_a[i] == 'r')
+			rotate(a, 'a');
+		else if (ops_a[i] == 'd')
+			r_rotate(a, 'a');
+		i++;
 	}
-	if (size == 3 || size == 6)
+	i = 0;
+	while (ops_b[i])
 	{
-		sort_small_stack_a(a);
-		sort_small_stack_b(b);
+		if (ops_b[i] == 's')
+			swap(b, 'b');
+		else if (ops_b[i] == 'r')
+			rotate(b, 'b');
+		else if (ops_b[i] == 'd')
+			r_rotate(b, 'b');
+		i++;
 	}
 }
 
-void sort_small_stack_a(t_stack *a)
+void sort_small_stack_a(t_stack t, char *operations)
 {
+    t_stack *a;
+    int     *arr;
+
+    a = &t;
+    arr = malloc((a->top + 1) * sizeof(int));
+    ft_memcpy(arr, t.stack, (t.top + 1) * sizeof(int));
+    a->stack = arr;
 	if (stk_peek(a, 2) > stk_peek(a, 1) && stk_peek(a, 2) < stk_peek(a, 3))
+	{
+		*operations = '\0';
+        free (arr);
 		return ;
+	}
 	if (stk_peek(a, 1) > stk_peek(a, 2) && stk_peek(a, 1) > stk_peek(a, 3))
 	{
-		swap(a, 'a');
+		*operations++ = 's';
+        swap(a, 'x');
 	}
 	if (stk_peek(a, 2) < stk_peek(a, 1) && stk_peek(a, 2) < stk_peek(a, 3))
 	{
-		swap(a, 'a');
+		*operations++ = 's';
+		*operations = '\0';
+        free (arr);
 		return ;
 	}
-	rotate(a, 'a');
-	swap(a, 'a');
-	r_rotate(a, 'a');
+	*operations++ = 'r';
+    rotate(a, 'x');
+	*operations++ = 's';
+    swap(a, 'x');
+	*operations++ = 'd';
+    r_rotate(a, 'x');
 	if (stk_peek(a, 1) > stk_peek(a, 2))
-		swap(a, 'a');
+    {
+		*operations++ = 's';
+    }
+	*operations = '\0';
+    free (arr);
 }
 
-void sort_small_stack_b(t_stack *b)
+void sort_small_stack_b(t_stack t, char *operations)
 {
+    t_stack *b;
+    int     *arr;
+
+    b = &t;
+    arr = malloc((b->top + 1) * sizeof(int));
+    ft_memcpy(arr, t.stack, (t.top + 1) * sizeof(int));
+    b->stack = arr;
 	if (stk_peek(b, 2) < stk_peek(b, 1) && stk_peek(b, 2) > stk_peek(b, 3))
+	{
+		*operations = '\0';
+        free (arr);
 		return ;
+	}
 	if (stk_peek(b, 1) < stk_peek(b, 2) && stk_peek(b, 1) < stk_peek(b, 3))
 	{
-		swap(b, 'b');
+		*operations++ = 's';
+        swap(b, 'x');
 	}
 	if (stk_peek(b, 2) > stk_peek(b, 1) && stk_peek(b, 2) > stk_peek(b, 3))
 	{
-		swap(b, 'b');
+		*operations++ = 's';
+		*operations = '\0';
+        free (arr);
 		return ;
 	}
-	rotate(b, 'b');
-	swap(b, 'b');
-	r_rotate(b, 'b');
+	*operations++ = 'r';
+    rotate(b, 'x');
+	*operations++ = 's';
+    swap(b, 'x');
+	*operations++ = 'd';
+    r_rotate(b, 'x');
 	if (stk_peek(b, 1) < stk_peek(b, 2))
-		swap(b, 'b');
-
+		*operations++ = 's';
+	*operations = '\0';
+    free (arr);
 }

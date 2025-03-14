@@ -21,7 +21,8 @@ void swap(t_stack *t, char name)
     temp = t->stack[t->top];
     t->stack[t->top] = t->stack[t->top - 1];
     t->stack[t->top - 1] = temp;
-    ft_printf("s%c\n", name);
+    if (name != 'x')
+        ft_printf("s%c\n", name);
 }
 
 void sswap(t_stack *a, t_stack *b)
@@ -55,7 +56,8 @@ void rotate(t_stack *t, char name)
         i--;
     }
     t->stack[0] = top; 
-    ft_printf("r%c\n", name);
+    if (name != 'x')
+        ft_printf("r%c\n", name);
 }
 
 void r_rotate(t_stack *t, char name)
@@ -73,7 +75,8 @@ void r_rotate(t_stack *t, char name)
         i++;
     }
     t->stack[t->top] = last;
-    ft_printf("rr%c\n", name);
+    if (name != 'x')
+        ft_printf("rr%c\n", name);
 }
 
 void push_x(t_stack *dst, t_stack *src, char name)
