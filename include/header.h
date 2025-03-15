@@ -10,6 +10,8 @@ void swap(t_stack *t, char name);
 void sswap(t_stack *a, t_stack *b);
 void rotate(t_stack *t, char name);
 void r_rotate(t_stack *t, char name);
+void rrotate(t_stack *a, t_stack *b);
+void r_rrotate(t_stack *a, t_stack *b);
 void push_x(t_stack *dst, t_stack *src, char name);
 void print_stack(t_stack t);
 void print_2stacks(t_stack a, t_stack b);

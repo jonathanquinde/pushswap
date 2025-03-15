@@ -60,12 +60,19 @@ void rotate(t_stack *t, char name)
         ft_printf("r%c\n", name);
 }
 
+void    rrotate(t_stack *a, t_stack *b)
+{
+    rotate(a, 'x');
+    rotate(b, 'x');
+    ft_printf("rr\n");
+}
+
 void r_rotate(t_stack *t, char name)
 {
     int i;
     int last;
 
-    if (t->top == 0)
+    if (t->top < 1)
         return ;
     i = 0;
     last = t->stack[0];
@@ -77,6 +84,13 @@ void r_rotate(t_stack *t, char name)
     t->stack[t->top] = last;
     if (name != 'x')
         ft_printf("rr%c\n", name);
+}
+
+void    r_rrotate(t_stack *a, t_stack *b)
+{
+    r_rotate(a, 'x');
+    r_rotate(b, 'x');
+    ft_printf("rrr\n");
 }
 
 void push_x(t_stack *dst, t_stack *src, char name)
