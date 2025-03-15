@@ -31,15 +31,13 @@ int main(int argc, char *argv[])
 		return (0);
 	//print_2stacks(a, b);
     sort(&a, &b, a.top + 1);
-	print_2stacks(a, b);
+	//print_2stacks(a, b);
 	free (a.stack);
 	free (b.stack);
 }
 
 void sort_recursive_a(t_stack *a, t_stack *b, int size)
 {
-    ft_printf("Sort_a for %d size\n", size);
-    print_2stacks(*a, *b);
     if (is_sorted(a->stack, size, a->top))
     {
         return ;
@@ -48,13 +46,9 @@ void sort_recursive_a(t_stack *a, t_stack *b, int size)
     {
         if (size > 3)
         {
-            ft_printf("Parting a on %d elements\n", size);
             partition_stack_a(a, b, size);
-            print_2stacks(*a, *b);
         }
-        ft_printf("Sorting\n");
         sort_edges(a, b, size);
-        print_2stacks(*a, *b);
 
         push_x(a, b, 'a');
         push_x(a, b, 'a');
@@ -63,8 +57,6 @@ void sort_recursive_a(t_stack *a, t_stack *b, int size)
         return;
     }
     partition_stack_a(a, b, size);
-    ft_printf("Parting a on %d elements\n", size);
-    print_2stacks(*a, *b);
 
     sort_recursive_a(a, b, ceil(size / (double)2));
     sort_recursive_b(a, b, floor(size / (double)2));
@@ -72,8 +64,6 @@ void sort_recursive_a(t_stack *a, t_stack *b, int size)
 
 void sort_recursive_b(t_stack *a, t_stack *b, int size)
 {
-    ft_printf("Sort_b for %d size\n", size);
-    print_2stacks(*a, *b);
     if (is_sorted_rev(b->stack, size, b->top))
     {
         for (int i = 0; i < size; i++)
@@ -86,13 +76,9 @@ void sort_recursive_b(t_stack *a, t_stack *b, int size)
     {
         if (size > 3)
         {
-            ft_printf("Parting b on %d elements\n", size);
             partition_stack_b(b, a, size);
-            print_2stacks(*a, *b);
         }
-        ft_printf("Sorting\n");
         sort_edges(a, b, size);
-        print_2stacks(*a, *b);
 
         push_x(a, b, 'a');
         push_x(a, b, 'a');
@@ -101,8 +87,6 @@ void sort_recursive_b(t_stack *a, t_stack *b, int size)
         return;
     }
     partition_stack_b(b, a, size);
-    ft_printf("Parting b on %d elements\n", size);
-    print_2stacks(*a, *b);
 
     sort_recursive_a(a, b, ceil(size / (double)2));
     sort_recursive_b(a, b, floor(size / (double)2));
