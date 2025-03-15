@@ -34,7 +34,7 @@ void partition_stack_a(t_stack *a, t_stack *b, int range)
 			count++;
 		}
 	}
-	while (range / 2 != a->top + 1 && count > 0)
+	while ((int) ceil(range / (double) 2) != a->top + 1 && count > 0)
 	{
 		r_rotate(a, 'a');
 		count--;
@@ -57,7 +57,7 @@ void partition_stack_b(t_stack *b, t_stack *a, int range)
 			count_rotate++;
 		}
 	}
-	while (range / 2 != b->top + 1 && count_rotate > 0)
+	while ((int) floor(range / (double) 2) != b->top + 1 && count_rotate > 0)
 	{
 		r_rotate(b, 'b');
 		count_rotate--;
