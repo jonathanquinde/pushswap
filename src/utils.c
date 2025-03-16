@@ -65,10 +65,10 @@ int *sorted_array(int *arr, int size, int top)
 	if (!copy)
 		return 0;
 	// Copy stack elements
-    for (int i = 0; i < size; i++)
-    {
-        copy[i] = arr[top - i]; // Copy top 'range' elements
-    } 
+	for (int i = 0; i < size; i++)
+	{
+		copy[i] = arr[top - i]; // Copy top 'range' elements
+	} 
 
 	// Sort copy (simple insertion sort for small arrays)
 	for (int i = 1; i < size; i++) {
@@ -80,44 +80,46 @@ int *sorted_array(int *arr, int size, int top)
 		}
 		copy[j + 1] = key;
 	}
-    return (copy);
+	return (copy);
 }
 
 // Helper function: Find median of stack
 int find_median(t_stack *a, int range)
 {
-    int *copy;
+	int *copy;
 
-    copy = sorted_array(a->stack, range, a->top);
+	copy = sorted_array(a->stack, range, a->top);
+	//ft_printf("Copy: %d %d\n", copy[0], copy[range - 1]);
 	int median;
 	if (range % 2 == 1)
 		median = copy[range / 2];
 	else
-		median = ceil((copy[range / 2 + 1] + copy[range / 2]) / 2);
+		median = floor((copy[range / 2 + 1] + copy[range / 2]) / (double)2);
 	free(copy);
+	//ft_printf("Median: %d, range: %d\n", median, range);
 	return median;
 }
 
 int is_sorted(int *arr, int range, int top)
 {
-    if (range < 2 || top < 1)  
-        return (1);
-    for (int i = top; i > top - range + 1; i--)  
-    {
-        if (arr[i] > arr[i - 1])  
-            return (0);
-    }
-    return (1);
+	if (range < 2 || top < 1)  
+		return (1);
+	for (int i = top; i > top - range + 1; i--)  
+	{
+		if (arr[i] > arr[i - 1])  
+			return (0);
+	}
+	return (1);
 }
 
 int is_sorted_rev(int *arr, int range, int top)
 {
-    if (range < 2 || top < 1)  
-        return (1);
-    for (int i = top; i > top - range + 1; i--)  
-    {
-        if (arr[i] < arr[i - 1])  
-            return (0);
-    }
-    return (1);
+	if (range < 2 || top < 1)  
+		return (1);
+	for (int i = top; i > top - range + 1; i--)  
+	{
+		if (arr[i] < arr[i - 1])  
+			return (0);
+	}
+	return (1);
 }
