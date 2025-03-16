@@ -4,3 +4,7 @@
 push_swap
 /.vscode
 /legacy
+*.sh
+*.log
+*.txt
+checker
