@@ -6,7 +6,7 @@
 /*   By: jquinde- < jquinde-@student.42madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 13:08:16 by jquinde-          #+#    #+#             */
-/*   Updated: 2025/03/17 10:57:02 by jquinde-         ###   ########.fr       */
+/*   Updated: 2025/03/17 20:59:57 by jquinde-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,51 +100,3 @@ void	push_x(t_stack *dst, t_stack *src, char name)
 	stk_push(dst, stk_pop(src));
 	ft_printf("p%c\n", name);
 }
-
-/*
-void	print_2stacks(t_stack a, t_stack b)
-{
-	int	i;
-
-	ft_printf(" a \t b \n");
-	if (a.top >= b.top)
-		i = a.top;
-	else
-		i = b.top;
-	while (i >= 0)
-	{
-		if (i > a.top)
-		{
-			ft_printf("   \t %d \n", b.stack[i]);
-		}
-		else if (i > b.top)
-		{
-			ft_printf(" %d  \t   \n", a.stack[i]);
-		}
-		else
-		{
-			ft_printf(" %d \t %d \n", a.stack[i], b.stack[i]);
-		}
-		i--;
-	}
-	ft_printf("----------\n");
-}
-
-void	print_stack(t_stack t)
-{
-	int	i;
-
-	if (t.top == 0)
-	{
-		ft_printf("\n-----\n");
-		return ;
-	}
-	i = t.top;
-	while (i >= 0)
-	{
-		ft_printf("%d\n", t.stack[i]);
-		i--;
-	}
-	ft_printf("\n-----\n");
-}
-*/

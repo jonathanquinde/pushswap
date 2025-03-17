@@ -6,7 +6,7 @@
 /*   By: jquinde- < jquinde-@student.42madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 16:02:49 by jquinde-          #+#    #+#             */
-/*   Updated: 2025/03/17 10:55:28 by jquinde-         ###   ########.fr       */
+/*   Updated: 2025/03/17 21:53:18 by jquinde-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,20 +54,20 @@ void	validate_and_convert(t_stack *a, char *arg)
 	if (!is_valid_number(arg))
 	{
 		write(STDERR_FILENO, "Error\nNumero invalido\n", 23);
-		free(a->stack);
+		stk_free(a);
 		exit(EXIT_FAILURE);
 	}
 	num = atol(arg);
 	if (num < INT_MIN || num > INT_MAX)
 	{
 		write(STDERR_FILENO, "Error\nNumero fuera de rango\n", 28);
-		free(a->stack);
+		stk_free(a);
 		exit(EXIT_FAILURE);
 	}
 	stk_push(a, (int)num);
 }
 
-void	parse_input(t_stack *a, int argc, char **argv)
+void	parse_input(t_stack **a, int argc, char **argv)
 {
 	int	i;
 
@@ -75,14 +75,14 @@ void	parse_input(t_stack *a, int argc, char **argv)
 	if (argc < 2)
 		exit(write(STDERR_FILENO, "Error\nParametros erroneos\n", 27));
 	*a = stk_new(argc - 1);
-	if (!a->stack)
+	if (!(*a)->stack)
 		exit(write(STDERR_FILENO, "Error\nMemoria fallida\n", 23));
 	while (i > 0)
-		validate_and_convert(a, argv[i--]);
-	if (has_duplicates(a->stack, a->capacity))
+		validate_and_convert(*a, argv[i--]);
+	if (has_duplicates((*a)->stack, (*a)->capacity))
 	{
 		write(STDERR_FILENO, "Error\nNumero duplicado\n", 24);
-		free(a->stack);
+		stk_free(*a);
 		exit(EXIT_FAILURE);
 	}
 }

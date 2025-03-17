@@ -6,35 +6,33 @@
 /*   By: jquinde- < jquinde-@student.42madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 20:21:44 by jquinde-          #+#    #+#             */
-/*   Updated: 2025/03/17 17:17:16 by jquinde-         ###   ########.fr       */
+/*   Updated: 2025/03/17 21:54:27 by jquinde-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
+void	mini_sort(t_stack *a, int size);
 void	sort(t_stack *a, t_stack *b, int size);
 void	sort_recursive_a(t_stack *a, t_stack *b, int size);
 void	sort_recursive_b(t_stack *a, t_stack *b, int size);
 
 int	main(int argc, char *argv[])
 {
-	t_stack	a;
-	t_stack	b;
+	t_stack	*a;
+	t_stack	*b;
 
-	b = stk_new(a.capacity);
-	if (b.stack == NULL)
-		return (0);
 	parse_input(&a, argc, argv);
-	if (is_sorted(a.stack, a.capacity, a.top))
+	if (is_sorted(a->stack, a->capacity, a->top))
 	{
-		free (a.stack);
+		stk_free(a);
 		return (0);
 	}
-	if (b.stack == NULL)
-		return (0);
-	sort(&a, &b, a.top + 1);
-	free (a.stack);
-	free (b.stack);
+	b = stk_new(a->capacity);
+	sort(a, b, a->top + 1);
+	print_2stacks(a, b);
+	stk_free(a);
+	stk_free(b);
 }
 
 void	sort_recursive_a(t_stack *a, t_stack *b, int size)
@@ -99,8 +97,31 @@ void	sort_recursive_b(t_stack *a, t_stack *b, int size)
 
 void	sort(t_stack *a, t_stack *b, int size)
 {
+	if (size < 5)
+	{
+		mini_sort(a, size);
+		return ;
+	}
 	partition_stack_a(a, b, size);
 
 	sort_recursive_a(a, b, ceil(size / (double)2));
 	sort_recursive_b(a, b, floor(size / (double)2));
+}
+
+//Sorteara 2, 3, 4
+void	mini_sort(t_stack *a, int size)
+{
+	char	ops[13];
+
+	ft_bzero(ops, 13);
+	if (size == 2)
+	{
+		if (stk_peek(a, 1) > stk_peek(a, 2))
+			ops[0] = 's';
+	}
+	else if (size == 3)
+		sort_just_3_a(a, ops);
+	else if (size == 4)
+		sort_4_a(a, ops);
+	sort_do(a, ops, 'a');
 }

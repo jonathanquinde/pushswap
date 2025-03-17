@@ -6,7 +6,7 @@
 /*   By: jquinde- < jquinde-@student.42madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 21:20:33 by jquinde-          #+#    #+#             */
-/*   Updated: 2025/03/17 11:02:51 by jquinde-         ###   ########.fr       */
+/*   Updated: 2025/03/17 20:55:47 by jquinde-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,15 @@ int	stk_is_empty(t_stack t)
 	return (t.top == -1);
 }
 
-t_stack	stk_new(int capacity)
+t_stack	*stk_new(int capacity)
 {
-	t_stack	t;
+	t_stack	*t;
 	int		*arr;
 
+	t = malloc(sizeof(t_stack));
 	arr = malloc(sizeof(int) * capacity);
-	t.stack = arr;
-	t.capacity = capacity;
-	t.top = -1;
+	t->stack = arr;
+	t->capacity = capacity;
+	t->top = -1;
 	return (t);
 }

@@ -6,13 +6,12 @@
 /*   By: jquinde- < jquinde-@student.42madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 23:29:23 by jquinde-          #+#    #+#             */
-/*   Updated: 2025/03/17 11:02:38 by jquinde-         ###   ########.fr       */
+/*   Updated: 2025/03/17 18:30:03 by jquinde-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-void	sort_do(t_stack *a, char *ops, char name);
 void	dual_ops(t_stack *a, t_stack *b, char *ops_a, char *ops_b);
 void	single_ops(t_stack *t,char *ops, char name);
 void	mutual_ops(t_stack *a, t_stack *b, char *ops_a, char *ops_b);
