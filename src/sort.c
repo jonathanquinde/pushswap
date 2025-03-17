@@ -12,10 +12,6 @@
 
 #include "header.h"
 
-
-//ft_printf("|%s|\n|%s|\n", ops_a, ops_b);
-//print_2stacks(*a, *b);
-
 //sorteara 5= 3 2, 6= 3 3, 7= 4 3, 8= 4 4
 void	sort_edges(t_stack *a, t_stack *b, int size)
 {
@@ -26,7 +22,7 @@ void	sort_edges(t_stack *a, t_stack *b, int size)
 	ft_bzero(ops_b, 6);
 	if (a->top + 1 == 3)
 		sort_just_3_a(a, ops_a);
-	else if (size == 4)
+	else if (size == 4 || a->top + 1 == 4)
 		sort_4_a(a, ops_a);
 	else if ((int) ceil(size / (double)2) == 3 || size == 3)
 		sort_3_a(*a, ops_a);
@@ -38,6 +34,8 @@ void	sort_edges(t_stack *a, t_stack *b, int size)
 
 	if (b->top + 1 == 3)
 		sort_just_3_b(b, ops_b);
+	else if (size == 4 || b->top + 1 == 4)
+		sort_4_b(b, ops_b);
 	else if ((int) floor(size / (double)2) == 3 || size == 3)
 		sort_3_b(*b, ops_b);
 	else if (size == 2 || (int) floor(size / (double)2) == 2)
@@ -45,7 +43,11 @@ void	sort_edges(t_stack *a, t_stack *b, int size)
 		if (b->top > 0 && stk_peek(b, 1) < b->stack[b->top - 1])
 			ops_b[0] = 's';
 	}
-	sort_it(a, b, ops_a, ops_b);
+	ft_printf("|%s|\n|%s|\n", ops_a, ops_b);
+	print_2stacks(a, b);
+	sort_do(a, ops_a, 'a');
+	sort_do(b, ops_b, 'b');
+	//sort_it(a, b, ops_a, ops_b);
 }
 
 

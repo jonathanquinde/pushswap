@@ -6,13 +6,14 @@
 /*   By: jquinde- < jquinde-@student.42madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 20:21:44 by jquinde-          #+#    #+#             */
-/*   Updated: 2025/03/17 21:54:27 by jquinde-         ###   ########.fr       */
+/*   Updated: 2025/03/17 22:33:57by jquinde-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
 void	mini_sort(t_stack *a, int size);
+void	medium_sort(t_stack *a, t_stack *b, int size);
 void	sort(t_stack *a, t_stack *b, int size);
 void	sort_recursive_a(t_stack *a, t_stack *b, int size);
 void	sort_recursive_b(t_stack *a, t_stack *b, int size);
@@ -29,7 +30,12 @@ int	main(int argc, char *argv[])
 		return (0);
 	}
 	b = stk_new(a->capacity);
-	sort(a, b, a->top + 1);
+	if (a->top + 1 < 5)
+		mini_sort(a, a->top + 1);
+	else if (a->top + 1 < 9)
+		medium_sort(a, b, a->top + 1);
+	else
+		sort(a, b, a->top + 1);
 	print_2stacks(a, b);
 	stk_free(a);
 	stk_free(b);
@@ -41,18 +47,12 @@ void	sort_recursive_a(t_stack *a, t_stack *b, int size)
 	{
 		return ;
 	}
-	if (size <= 6)
+	if (size <= 8)
 	{
-		if (size > 3)
-		{
+		if (size > 4)
 			partition_stack_a(a, b, size);
-		}
 		sort_edges(a, b, size);
 
-		push_x(a, b, 'a');
-		push_x(a, b, 'a');
-		if (size == 3 || (int) floor(size / (double)2) == 3)
-			push_x(a, b, 'a');
 		return ;
 	}
 	partition_stack_a(a, b, size);
@@ -75,18 +75,11 @@ void	sort_recursive_b(t_stack *a, t_stack *b, int size)
 		}
 		return ;
 	}
-	if (size <= 6)
+	if (size <= 8)
 	{
-		if (size > 3)
-		{
+		if (size > 4)
 			partition_stack_b(b, a, size);
-		}
 		sort_edges(a, b, size);
-
-		push_x(a, b, 'a');
-		push_x(a, b, 'a');
-		if (size == 3 || (int) floor(size / (double)2) == 3)
-			push_x(a, b, 'a');
 		return ;
 	}
 	partition_stack_b(b, a, size);
@@ -97,18 +90,27 @@ void	sort_recursive_b(t_stack *a, t_stack *b, int size)
 
 void	sort(t_stack *a, t_stack *b, int size)
 {
-	if (size < 5)
-	{
-		mini_sort(a, size);
-		return ;
-	}
 	partition_stack_a(a, b, size);
 
 	sort_recursive_a(a, b, ceil(size / (double)2));
 	sort_recursive_b(a, b, floor(size / (double)2));
 }
 
-//Sorteara 2, 3, 4
+void	medium_sort(t_stack *a, t_stack *b, int size)
+{
+	int	elms_parted;
+
+	partition_stack_a(a, b, size);
+	sort_edges(a, b, size);
+	elms_parted = (int) floor(size / (double)2);
+	ft_printf("%d\n", elms_parted);
+	while (elms_parted > 0)
+	{
+		push_x(a, b, 'a');
+		elms_parted--;
+	}
+}
+
 void	mini_sort(t_stack *a, int size)
 {
 	char	ops[13];

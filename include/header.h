@@ -6,7 +6,7 @@
 /*   By: jquinde- < jquinde-@student.42madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 21:47:06 by jquinde-          #+#    #+#             */
-/*   Updated: 2025/03/17 21:47:07 by jquinde-         ###   ########.fr       */
+/*   Updated: 2025/03/17 22:16:47 by jquinde-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,9 @@ void	sort_edges(t_stack *a, t_stack *b, int size);
 
 void	sort_it(t_stack *a, t_stack *b, char *ops_a, char *ops_b);
 void	sort_do(t_stack *a, char *ops, char name);
-void	sort_4_a(t_stack *t, char *ops_a);
 
+void	sort_4_a(t_stack *t, char *ops_a);
+void	sort_4_b(t_stack *t, char *ops_b);
 void	sort_3_a(t_stack a, char *operations);
 void	sort_3_b(t_stack b, char *operations);
 void	sort_just_3_a(t_stack *a, char *ops_a);
