@@ -6,7 +6,7 @@
 /*   By: jquinde- < jquinde-@student.42madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 20:21:44 by jquinde-          #+#    #+#             */
-/*   Updated: 2025/03/17 10:54:02 by jquinde-         ###   ########.fr       */
+/*   Updated: 2025/03/17 17:17:16 by jquinde-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int argc, char *argv[])
 
 	b = stk_new(a.capacity);
 	if (b.stack == NULL)
-		return ;
+		return (0);
 	parse_input(&a, argc, argv);
 	if (is_sorted(a.stack, a.capacity, a.top))
 	{

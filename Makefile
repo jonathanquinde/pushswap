@@ -1,7 +1,7 @@
 # Variables
 NAME = push_swap
 
-SRC = src/operations.c src/parsing.c src/push_swap.c src/stack.c src/utils.c src/sort.c src/sort2.c
+SRC = src/operations.c src/parsing.c src/push_swap.c src/stack.c src/utils.c src/sort.c src/sort2.c src/sort_4.c
 PSRC = src/ft_printf/*.c
 
 FLAGS = -Wall -Werror -Wextra
