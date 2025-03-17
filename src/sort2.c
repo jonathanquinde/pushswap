@@ -6,7 +6,7 @@
 /*   By: jquinde- < jquinde-@student.42madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 23:29:23 by jquinde-          #+#    #+#             */
-/*   Updated: 2025/03/15 23:29:23 by jquinde-         ###   ########.fr       */
+/*   Updated: 2025/03/17 11:02:38 by jquinde-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	dual_ops(t_stack *a, t_stack *b, char *ops_a, char *ops_b);
 void	single_ops(t_stack *t,char *ops, char name);
 void	mutual_ops(t_stack *a, t_stack *b, char *ops_a, char *ops_b);
 
-void sort_it(t_stack *a, t_stack *b, char *ops_a, char *ops_b)
-{ 
+void	sort_it(t_stack *a, t_stack *b, char *ops_a, char *ops_b)
+{
 	if (*ops_a == *ops_b && *ops_a == 's')
 	{
 		dual_ops(a, b, ops_a, ops_b);
@@ -40,7 +40,7 @@ void sort_it(t_stack *a, t_stack *b, char *ops_a, char *ops_b)
 		mutual_ops(a, b, ops_a, ops_b);
 		return ;
 	}
-	sort_do(a, ops_a, 'a');	
+	sort_do(a, ops_a, 'a');
 	sort_do(b, ops_b, 'b');
 }
 
@@ -57,8 +57,8 @@ void	mutual_ops(t_stack *a, t_stack *b, char *ops_a, char *ops_b)
 	else if (*ops_b == 0)
 		sort_do(a , ops_a, 'a');
 }
-			
-void single_ops(t_stack *t,char *ops, char name)
+
+void	single_ops(t_stack *t,char *ops, char name)
 {
 	if (*ops == 's')
 		swap(t, name);
@@ -68,7 +68,7 @@ void single_ops(t_stack *t,char *ops, char name)
 		r_rotate(t, name);
 }
 
-void    dual_ops(t_stack *a, t_stack *b, char *ops_a, char *ops_b)
+void	dual_ops(t_stack *a, t_stack *b, char *ops_a, char *ops_b)
 {
 	if (*ops_a == 's' && *ops_b == 's')
 	{
@@ -85,7 +85,7 @@ void    dual_ops(t_stack *a, t_stack *b, char *ops_a, char *ops_b)
 
 }
 
-void sort_do(t_stack *a, char *ops, char name)
+void	sort_do(t_stack *a, char *ops, char name)
 {
 	while (*ops)
 	{

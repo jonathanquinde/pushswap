@@ -6,22 +6,26 @@
 /*   By: jquinde- < jquinde-@student.42madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 22:39:07 by jquinde-          #+#    #+#             */
-/*   Updated: 2025/03/11 22:39:07 by jquinde-         ###   ########.fr       */
+/*   Updated: 2025/03/17 11:02:13 by jquinde-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-void sort_small_stack_a(t_stack a, char *operations);
-void sort_small_stack_b(t_stack b, char *operations);
-void    foo_a(t_stack *b, char *ops_b);
-void    foo_b(t_stack *b, char *ops_b);
+void	sort_small_stack_a(t_stack a, char *operations);
+void	sort_small_stack_b(t_stack b, char *operations);
+void	foo_a(t_stack *b, char *ops_b);
+void	foo_b(t_stack *b, char *ops_b);
 
-void sort_edges(t_stack *a, t_stack *b, int size)
+	//ft_printf("|%s|\n|%s|\n", ops_a, ops_b);
+    //print_2stacks(*a, *b);
+void	sort_edges(t_stack *a, t_stack *b, int size)
 {
-	char	ops_a[6] = {0};
-	char	ops_b[6] = {0};
+	char	ops_a[6];
+	char	ops_b[6];
 
+	ft_bzero(ops_a, 6);
+	ft_bzero(ops_b, 6);
 	if (a->top == 2)
 		foo_a(a, ops_a);
 	else if ((int) ceil(size / (double)2) == 3 || size == 3)
@@ -41,24 +45,10 @@ void sort_edges(t_stack *a, t_stack *b, int size)
 		if (b->top > 0 && stk_peek(b, 1) < b->stack[b->top - 1]) 
 			ops_b[0] = 's';
 	}
-
-	//ft_printf("|%s|\n|%s|\n", ops_a, ops_b);
-    sort_it(a, b, ops_a, ops_b);
-	//tres operaciones o mas
-//	if (ops_a[2] != 0 && ops_b[2] != 0)
-//		sort_3_more(a, b, ops_a, ops_b);
-//	else if (ops_a[2] == 0 && ops_b[2] == 0)
-//		sort_2_op(a, b, ops_a, ops_b);
-//	else if (ops_a[1] == 0 && ops_b[1] == 0)
-//		sort_1_op(a, b, ops_a, ops_b);
-//	else if (ft_strlen(ops_a) > ft_strlen(ops_b))
-//		sort_it_a(a, b, ops_a, ops_b);
-//	else if (ft_strlen(ops_a) < ft_strlen(ops_b))
-//		sort_it_b(a, b, ops_a, ops_b);
-    //print_2stacks(*a, *b);
+	sort_it(a, b, ops_a, ops_b);
 }
 
-void    foo_a(t_stack *a, char *ops_a)
+void	foo_a(t_stack *a, char *ops_a)
 {
 	if (stk_peek(a, 2) > stk_peek(a, 1) && stk_peek(a, 2) < stk_peek(a, 3))
 		return ;
@@ -80,7 +70,7 @@ void    foo_a(t_stack *a, char *ops_a)
 	}
 }
 
-void    foo_b(t_stack *b, char *ops_b)
+void	foo_b(t_stack *b, char *ops_b)
 {
 	if (stk_peek(b, 2) < stk_peek(b, 1) && stk_peek(b, 2) > stk_peek(b, 3))
 		return ;
@@ -102,11 +92,10 @@ void    foo_b(t_stack *b, char *ops_b)
 	}
 }
 
-//s + rsd + s
-void sort_small_stack_a(t_stack t, char *operations)
+void	sort_small_stack_a(t_stack t, char *operations)
 {
-	t_stack *a;
-	int     *arr;
+	t_stack	*a;
+	int		*arr;
 
 	a = &t;
 	arr = malloc((a->top + 1) * sizeof(int));
@@ -144,10 +133,10 @@ void sort_small_stack_a(t_stack t, char *operations)
 	free (arr);
 }
 
-void sort_small_stack_b(t_stack t, char *operations)
+void	sort_small_stack_b(t_stack t, char *operations)
 {
-	t_stack *b;
-	int     *arr;
+	t_stack	*b;
+	int		*arr;
 
 	b = &t;
 	arr = malloc((b->top + 1) * sizeof(int));
