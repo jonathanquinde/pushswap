@@ -37,7 +37,7 @@ void	sort_4_a(t_stack *t, char *ops_a)
 	}
 	else if (pos_greater_by(a, 4, 4) == 4)
 		sort_3_a(*a, ops_a);
-	if (pos_greater_by(a, 1, 4 == 1) || pos_greater_by(a, 4, 4) == 4)
+	if (pos_greater_by(a, 1, 4) == 1 || pos_greater_by(a, 4, 4) == 4)
 		stk_free(a);
 	else
 		sort_4__a(a, ops_a);
@@ -93,7 +93,7 @@ void	sort_4_b(t_stack *t, char *ops_b)
 	}
 	else if (pos_greater_by(b, 4, 4) == 1)
 		sort_3_b(*b, ops_b);
-	if (pos_greater_by(b, 1, 4 == 4) || pos_greater_by(b, 4, 4) == 4)
+	if (pos_greater_by(b, 1, 4) == 4 || pos_greater_by(b, 4, 4) == 1)
 		stk_free(b);
 	else
 		sort_4__b(b, ops_b);
@@ -101,6 +101,7 @@ void	sort_4_b(t_stack *t, char *ops_b)
 
 void	sort_4__b(t_stack *b, char *ops_b)
 {
+
 	if (pos_greater_by(b, 3, 4) == 1)
 		*ops_b++ = 'r';
 	*ops_b++ = 'r';

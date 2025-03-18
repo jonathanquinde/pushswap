@@ -36,7 +36,7 @@ int	main(int argc, char *argv[])
 		medium_sort(a, b, a->top + 1);
 	else
 		sort(a, b, a->top + 1);
-	print_2stacks(a, b);
+	//print_2stacks(a, b);
 	stk_free(a);
 	stk_free(b);
 }
@@ -44,9 +44,7 @@ int	main(int argc, char *argv[])
 void	sort_recursive_a(t_stack *a, t_stack *b, int size)
 {
 	if (is_sorted(a->stack, size, a->top))
-	{
 		return ;
-	}
 	if (size <= 8)
 	{
 		if (size > 4)
@@ -98,17 +96,8 @@ void	sort(t_stack *a, t_stack *b, int size)
 
 void	medium_sort(t_stack *a, t_stack *b, int size)
 {
-	int	elms_parted;
-
 	partition_stack_a(a, b, size);
 	sort_edges(a, b, size);
-	elms_parted = (int) floor(size / (double)2);
-	ft_printf("%d\n", elms_parted);
-	while (elms_parted > 0)
-	{
-		push_x(a, b, 'a');
-		elms_parted--;
-	}
 }
 
 void	mini_sort(t_stack *a, int size)

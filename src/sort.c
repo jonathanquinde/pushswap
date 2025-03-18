@@ -17,12 +17,13 @@ void	sort_edges(t_stack *a, t_stack *b, int size)
 {
 	char	ops_a[13];
 	char	ops_b[13];
+	int		elms_parted;
 
-	ft_bzero(ops_a, 6);
-	ft_bzero(ops_b, 6);
+	ft_bzero(ops_a, 13);
+	ft_bzero(ops_b, 13);
 	if (a->top + 1 == 3)
 		sort_just_3_a(a, ops_a);
-	else if (size == 4 || a->top + 1 == 4)
+	else if (size == 4 || a->top + 1 == 4 || (int) ceil(size / (double)2) == 4)
 		sort_4_a(a, ops_a);
 	else if ((int) ceil(size / (double)2) == 3 || size == 3)
 		sort_3_a(*a, ops_a);
@@ -34,19 +35,26 @@ void	sort_edges(t_stack *a, t_stack *b, int size)
 
 	if (b->top + 1 == 3)
 		sort_just_3_b(b, ops_b);
-	else if (size == 4 || b->top + 1 == 4)
+	else if (size == 4 || b->top + 1 == 4 || (int)floor(size / (double)2) == 4)
 		sort_4_b(b, ops_b);
 	else if ((int) floor(size / (double)2) == 3 || size == 3)
 		sort_3_b(*b, ops_b);
-	else if (size == 2 || (int) floor(size / (double)2) == 2)
+	else if (size == 2 || (int)floor(size / (double)2) == 2)
 	{
 		if (b->top > 0 && stk_peek(b, 1) < b->stack[b->top - 1])
 			ops_b[0] = 's';
 	}
-	ft_printf("|%s|\n|%s|\n", ops_a, ops_b);
-	print_2stacks(a, b);
+	//ft_printf("|%s|\n|%s|\n", ops_a, ops_b);
+	//print_2stacks(a, b);
 	sort_do(a, ops_a, 'a');
 	sort_do(b, ops_b, 'b');
+	//print_2stacks(a, b);
+	elms_parted = (int) floor(size / (double)2);
+	while (elms_parted > 0)
+	{
+		push_x(a, b, 'a');
+		elms_parted--;
+	}
 	//sort_it(a, b, ops_a, ops_b);
 }
 
