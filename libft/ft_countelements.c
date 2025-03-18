@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   queue.h                                            :+:      :+:    :+:   */
+/*   ft_countelements.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jquinde- < jquinde-@student.42madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/22 17:14:26 by jquinde-          #+#    #+#             */
-/*   Updated: 2025/02/22 17:14:26 by jquinde-         ###   ########.fr       */
+/*   Created: 2025/03/18 15:09:42 by jquinde-          #+#    #+#             */
+/*   Updated: 2025/03/18 15:15:15 by jquinde-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-#ifndef QUEUE_H
-# define QUEUE_H
-typedef struct s_queue
+int	ft_count_elements(char **arr)
 {
-	t_list *head;
-	t_list *tail;
-}				t_queue;
+	int	count;
 
-
-t_queue queue_new (void);
-int queue_empty (t_queue queue);
-void queue_put (t_queue *queue, void *x);
-void *queue_get (t_queue *stk);
-void queue_free (t_queue *queue);
-
-#endif
+	count = 0;
+	while (arr[count] != NULL)
+	{
+		count++;
+	}
+	return (count);
+}

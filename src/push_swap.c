@@ -36,7 +36,7 @@ int	main(int argc, char *argv[])
 		medium_sort(a, b, a->top + 1);
 	else
 		sort(a, b, a->top + 1);
-	print_2stacks(a, b);
+	//print_2stacks(a, b);
 	stk_free(a);
 	stk_free(b);
 }

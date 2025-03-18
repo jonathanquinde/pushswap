@@ -6,7 +6,7 @@
 /*   By: jquinde- < jquinde-@student.42madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 16:02:49 by jquinde-          #+#    #+#             */
-/*   Updated: 2025/03/17 21:53:18 by jquinde-         ###   ########.fr       */
+/*   Updated: 2025/03/18 16:12:12 by jquinde-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,42 @@ int	has_duplicates(int *arr, int size)
 	return (0);
 }
 
+void	validate_and_convert_split(t_stack *a, char **arg, int i)
+{
+	long	num;
+
+	if (!is_valid_number(arg[i]))
+	{
+		write(STDERR_FILENO, "Error\n", 7);
+		stk_free(a);
+		arr_arr_free((void ***)&arg, ft_count_elements(arg));
+		exit(EXIT_FAILURE);
+	}
+	num = ft_atol(arg[i]);
+	if (num < INT_MIN || num > INT_MAX)
+	{
+		write(STDERR_FILENO, "Error\n", 7);
+		stk_free(a);
+		arr_arr_free((void ***)&arg, ft_count_elements(arg));
+		exit(EXIT_FAILURE);
+	}
+	stk_push(a, (int)num);
+}
+
 void	validate_and_convert(t_stack *a, char *arg)
 {
 	long	num;
 
 	if (!is_valid_number(arg))
 	{
-		write(STDERR_FILENO, "Error\nNumero invalido\n", 23);
+		write(STDERR_FILENO, "Error\n", 7);
 		stk_free(a);
 		exit(EXIT_FAILURE);
 	}
-	num = atol(arg);
+	num = ft_atol(arg);
 	if (num < INT_MIN || num > INT_MAX)
 	{
-		write(STDERR_FILENO, "Error\nNumero fuera de rango\n", 28);
+		write(STDERR_FILENO, "Error\n", 7);
 		stk_free(a);
 		exit(EXIT_FAILURE);
 	}
@@ -69,19 +91,33 @@ void	validate_and_convert(t_stack *a, char *arg)
 
 void	parse_input(t_stack **a, int argc, char **argv)
 {
-	int	i;
+	int		i;
+	char	**split_args;
 
-	i = argc -1;
 	if (argc < 2)
-		exit(write(STDERR_FILENO, "Error\nParametros erroneos\n", 27));
-	*a = stk_new(argc - 1);
-	if (!(*a)->stack)
-		exit(write(STDERR_FILENO, "Error\nMemoria fallida\n", 23));
-	while (i > 0)
-		validate_and_convert(*a, argv[i--]);
+		write(STDERR_FILENO, "Error\n", 7);
+	if (argc == 2 && ft_strchr(argv[1], ' '))
+	{
+		split_args = ft_split(argv[1], ' ');
+		i = ft_count_elements(split_args) - 1;
+		*a = stk_new(i + 1);
+		while (i >= 0)
+		{
+			validate_and_convert_split(*a, split_args, i);
+			i--;
+		}
+		arr_arr_free((void ***)&split_args, ft_count_elements(split_args));
+	}
+	else
+	{
+		i = argc -1;
+		*a = stk_new(i);
+		while (i > 0)
+			validate_and_convert(*a, argv[i--]);
+	}
 	if (has_duplicates((*a)->stack, (*a)->capacity))
 	{
-		write(STDERR_FILENO, "Error\nNumero duplicado\n", 24);
+		write(STDERR_FILENO, "Error\n", 7);
 		stk_free(*a);
 		exit(EXIT_FAILURE);
 	}

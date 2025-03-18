@@ -1,24 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   file.h                                             :+:      :+:    :+:   */
+/*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jquinde- < jquinde-@student.42madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/25 16:39:57 by jquinde-          #+#    #+#             */
-/*   Updated: 2025/02/25 16:39:57 by jquinde-         ###   ########.fr       */
+/*   Created: 2025/03/18 15:21:22 by jquinde-          #+#    #+#             */
+/*   Updated: 2025/03/18 15:22:13 by jquinde-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fcntl.h>
 #include "libft.h"
 
-#ifndef FILE_H
-# define FILE_H
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 2
-# endif
-void	ft_raw_rreadtext(int fd, t_list **head);
-char    *ft_readtext(int fd);
-t_list  *ft_rreadlines(int fd);
-#endif
+long	ft_atol(const char *ntpr)
+{
+	int		sign;
+	long	num;
+
+	num = 0;
+	if (ntpr == NULL)
+		return (num);
+	while (*ntpr == ' ' || (*ntpr >= '\t' && *ntpr <= '\r'))
+		ntpr++;
+	sign = 1;
+	if (*ntpr == '+' || *ntpr == '-')
+	{
+		if (*ntpr == '-')
+			sign = -1;
+		ntpr++;
+	}
+	while (ft_isdigit(*ntpr))
+	{
+		num = num * 10 + (*ntpr - '0');
+		ntpr++;
+	}
+	return (num * sign);
+}

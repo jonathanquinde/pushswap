@@ -6,7 +6,7 @@
 /*   By: jquinde- < jquinde-@student.42madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 23:29:23 by jquinde-          #+#    #+#             */
-/*   Updated: 2025/03/18 14:21:36 by jquinde-         ###   ########.fr       */
+/*   Updated: 2025/03/18 14:36:53 by jquinde-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,56 +15,47 @@
 void	dual_ops(t_stack *a, t_stack *b, char *ops_a, char *ops_b);
 void	single_ops(t_stack *t,char *ops, char name);
 void	mutual_ops(t_stack *a, t_stack *b, char *ops_a, char *ops_b);
+void	apply_sort_a(t_stack *a, t_stack *b, char *ops_a, char *ops_b);
+void	apply_sort_b(t_stack *a, t_stack *b, char *ops_a, char *ops_b);
 
 void	sort_it(t_stack *a, t_stack *b, char *ops_a, char *ops_b)
 {
-	if (*ops_a == *ops_b && *ops_a == 's')
+	if (ft_strlen(ops_a) >= ft_strlen(ops_b))
+		apply_sort_a(a, b, ops_a, ops_b);
+	else
+		apply_sort_b(a, b, ops_a, ops_b);
+}
+
+void	apply_sort_a(t_stack *a, t_stack *b, char *ops_a, char *ops_b)
+{
+	while (*ops_a)
 	{
-		dual_ops(a, b, ops_a, ops_b);
+		if (*ops_a == *ops_b)
+		{
+			dual_ops(a, b, ops_a, ops_b);
+			ops_b++;
+		}
+		else
+			single_ops(a, ops_a, 'a');
 		ops_a++;
-		ops_b++;
 	}
-	else if (*ops_a == 's')
-	{
-		single_ops(a, ops_a, 'a');
-		ops_a++;
-	}
-	else if (*ops_b == 's')
-	{
-		single_ops(b, ops_b, 'b');
-		ops_b++;
-	}
-	if (*ops_a == 'r' && *ops_b == 'r')
-	{
-		mutual_ops(a, b, ops_a, ops_b);
-		return ;
-	}
-	sort_do(a, ops_a, 'a');
 	sort_do(b, ops_b, 'b');
 }
 
-void	mutual_ops(t_stack *a, t_stack *b, char *ops_a, char *ops_b)
+void	apply_sort_b(t_stack *a, t_stack *b, char *ops_a, char *ops_b)
 {
-	if (*(ops_a + 1) == 'r')
+	while (*ops_b)
 	{
-		rotate(a, 'a');
-		ops_a++;
-	}
-	if (*(ops_b + 1) == 'r')
-	{
-		rotate(b, 'b');
+		if (*ops_a == *ops_b)
+		{
+			dual_ops(a, b, ops_a, ops_b);
+			ops_a++;
+		}
+		else
+			single_ops(b, ops_b, 'b');
 		ops_b++;
 	}
-	while (*ops_a == *ops_b && *ops_a)
-	{
-		dual_ops(a, b, ops_a, ops_b);
-		ops_a++;
-		ops_b++;
-	}
-	if (*ops_a)
-		sort_do(a, ops_a, 'a');
-	if (*ops_b)
-		sort_do(b, ops_b, 'b');
+	sort_do(a, ops_a, 'a');
 }
 
 void	single_ops(t_stack *t, char *ops, char name)
