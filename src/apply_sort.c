@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort2.c                                            :+:      :+:    :+:   */
+/*   apply_sort.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jquinde- < jquinde-@student.42madrid.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 23:29:23 by jquinde-          #+#    #+#             */
-/*   Updated: 2025/03/17 18:30:03 by jquinde-         ###   ########.fr       */
+/*   Updated: 2025/03/18 14:21:36 by jquinde-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,29 @@ void	sort_it(t_stack *a, t_stack *b, char *ops_a, char *ops_b)
 
 void	mutual_ops(t_stack *a, t_stack *b, char *ops_a, char *ops_b)
 {
-	while (*ops_a && *ops_b)
+	if (*(ops_a + 1) == 'r')
+	{
+		rotate(a, 'a');
+		ops_a++;
+	}
+	if (*(ops_b + 1) == 'r')
+	{
+		rotate(b, 'b');
+		ops_b++;
+	}
+	while (*ops_a == *ops_b && *ops_a)
 	{
 		dual_ops(a, b, ops_a, ops_b);
 		ops_a++;
 		ops_b++;
 	}
-	if (*ops_a == 0)
-		sort_do(b , ops_b, 'b');
-	else if (*ops_b == 0)
-		sort_do(a , ops_a, 'a');
+	if (*ops_a)
+		sort_do(a, ops_a, 'a');
+	if (*ops_b)
+		sort_do(b, ops_b, 'b');
 }
 
-void	single_ops(t_stack *t,char *ops, char name)
+void	single_ops(t_stack *t, char *ops, char name)
 {
 	if (*ops == 's')
 		swap(t, name);

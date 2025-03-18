@@ -44,10 +44,9 @@ void	sort_edges(t_stack *a, t_stack *b, int size)
 		if (b->top > 0 && stk_peek(b, 1) < b->stack[b->top - 1])
 			ops_b[0] = 's';
 	}
-	//ft_printf("|%s|\n|%s|\n", ops_a, ops_b);
 	//print_2stacks(a, b);
-	sort_do(a, ops_a, 'a');
-	sort_do(b, ops_b, 'b');
+	//ft_printf("|%s|\n|%s|\n", ops_a, ops_b);
+	sort_it(a, b, ops_a, ops_b);
 	//print_2stacks(a, b);
 	elms_parted = (int) floor(size / (double)2);
 	while (elms_parted > 0)
@@ -55,7 +54,6 @@ void	sort_edges(t_stack *a, t_stack *b, int size)
 		push_x(a, b, 'a');
 		elms_parted--;
 	}
-	//sort_it(a, b, ops_a, ops_b);
 }
 
 
